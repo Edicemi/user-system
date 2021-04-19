@@ -1,16 +1,15 @@
+require("dotenv").config();
 const express = require('express');
+const db = require("./db");
+
+db;
 
 const app = express();
+const userRouter = require("./api/users/user.router");
 
+app.use(express.json());
 
-app.get('/api', (req, res, next) => {
-    res.json({
-        success: 1,
-        message: "Rest api is running"
-
-    });
-
-});
-app.listen(8080, () => {
-    console.log(`Server listening on 8080`);
+app.use("/api/users", userRouter);
+app.listen(process.env.APP_PORT, () => {
+    console.log(`Server listening on port: `, process.env.APP_PORT);
 });
